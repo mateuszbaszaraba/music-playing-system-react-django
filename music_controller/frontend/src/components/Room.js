@@ -8,14 +8,21 @@ const Room = props => {
 
   const { roomCode } = useParams()
 
-  const getRoomDetails = () => {
-    fetch('/api/get-room' + '?code=' + roomCode)
-      .then(response => response.json())
-      .then(data => {
-        setVotesToSkip(data.votes_to_skip)
-        setGuestCanPause(data.guest_can_pause)
-        setIsHost(data.is_host)
-      })
+  const getRoomDetails = async () => {
+    const feedBack = await fetch('/api/get-room' + '?code=' + roomCode)
+    const jsonFeedBack = await feedBack.json()
+
+    setVotesToSkip(jsonFeedBack.votes_to_skip)
+    setGuestCanPause(jsonFeedBack.guest_can_pause)
+    setIsHost(jsonFeedBack.is_host)
+
+    // fetch('/api/get-room' + '?code=' + roomCode)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     setVotesToSkip(data.votes_to_skip)
+    //     setGuestCanPause(data.guest_can_pause)
+    //     setIsHost(data.is_host)
+    //   })
   }
 
   useEffect(() => {

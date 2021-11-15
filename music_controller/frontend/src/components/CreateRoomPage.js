@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Button,
   Grid,
@@ -15,6 +15,8 @@ import {
 const CreateRoomPage = () => {
   const [votesToSkip, setVotesToSkip] = useState(2)
   const [guestCanPause, setGuestCanPause] = useState(true)
+
+  let navigate = useNavigate()
 
   const handleVotesChange = event => {
     setVotesToSkip(event.target.value)
@@ -37,6 +39,8 @@ const CreateRoomPage = () => {
     const feedBack = await fetch('/api/create-room', requestOptions)
     const jsonFeedBack = await feedBack.json()
     console.log(jsonFeedBack)
+
+    navigate('/room/' + jsonFeedBack.code)
   }
 
   return (

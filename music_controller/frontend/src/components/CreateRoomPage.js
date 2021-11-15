@@ -24,9 +24,7 @@ const CreateRoomPage = () => {
     setGuestCanPause(event.target.value === 'true' ? true : false)
   }
 
-  const handleRoomButtonPressed = () => {
-    console.log(votesToSkip, guestCanPause)
-
+  const handleRoomButtonPressed = async () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -35,9 +33,10 @@ const CreateRoomPage = () => {
         guest_can_pause: guestCanPause,
       }),
     }
-    fetch('/api/create-room', requestOptions)
-      .then(response => response.json())
-      .then(data => console.log(data))
+
+    const feedBack = await fetch('/api/create-room', requestOptions)
+    const jsonFeedBack = await feedBack.json()
+    console.log(jsonFeedBack)
   }
 
   return (

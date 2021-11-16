@@ -12,7 +12,7 @@ const RoomJoinPage = () => {
     setRoomCode(event.target.value)
   }
 
-  const roomButtonPressed = () => {
+  const roomButtonPressed = async () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -20,17 +20,13 @@ const RoomJoinPage = () => {
         code: roomCode,
       }),
     }
-    fetch('/api/join-room', requestOptions)
-      .then(response => {
-        if (response.ok) {
-          navigate(`/room/${roomCode}`)
-        } else {
-          setError('Room not found')
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+
+    const feedBack = await fetch('/api/join-room', requestOptions)
+    if (feedBack.status == 200) {
+      navigate(`/room/${roomCode}`)
+    } else {
+      setError('Room not found')
+    }
   }
 
   return (

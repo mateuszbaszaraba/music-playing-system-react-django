@@ -19,6 +19,7 @@ App is created for people who want to listen to music with friends. Every room h
 ## Technologies Used
 - ReactJS v17.0.2
 - Python v3.9.1 (Django)
+
 More informations in `package.json` file
 
 

@@ -40,7 +40,7 @@ const CreateRoomPage = () => {
     const jsonFeedBack = await feedBack.json()
     console.log(jsonFeedBack)
 
-    navigate('/room/' + jsonFeedBack.code)
+    navigate(`/room/${jsonFeedBack.code}`)
   }
 
   return (

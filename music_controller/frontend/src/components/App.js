@@ -2,7 +2,11 @@ import React from 'react'
 import HomePage from './HomePage'
 
 const App = () => {
-  return <HomePage />
+  return (
+    <div className="center">
+      <HomePage />
+    </div>
+  )
 }
 
 export default App

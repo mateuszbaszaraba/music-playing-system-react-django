@@ -3,8 +3,17 @@ import RoomJoinPage from './RoomJoinPage'
 import CreateRoomPage from './CreateRoomPage'
 import Room from './Room'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Button, Grid, Typography, ButtonGroup } from '@material-ui/core'
 
 const HomePage = () => {
+  const homePage = () => {
+    return (
+      <Grid container spacing={3}>
+        <Grid item xs={12} align="center"></Grid>
+      </Grid>
+    )
+  }
+
   return (
     <Router>
       <Routes>

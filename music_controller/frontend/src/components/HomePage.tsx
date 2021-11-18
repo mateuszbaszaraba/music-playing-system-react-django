@@ -2,14 +2,28 @@ import React from 'react'
 import RoomJoinPage from './RoomJoinPage'
 import CreateRoomPage from './CreateRoomPage'
 import Room from './Room'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { Button, Grid, Typography, ButtonGroup } from '@material-ui/core'
 
 const HomePage = () => {
-  const homePage = () => {
+  const HomePageComponent = () => {
     return (
       <Grid container spacing={3}>
-        <Grid item xs={12} align="center"></Grid>
+        <Grid item xs={12} align="center">
+          <Typography variant="h3" compact="h3">
+            Music Listening With Friends
+          </Typography>
+        </Grid>
+        <Grid item xs={12} align="center">
+          <ButtonGroup disableElevation variant="contained" color="primary">
+            <Button color="primary" to="/join" component={Link}>
+              Join a Room
+            </Button>
+            <Button color="secondary" to="/create" component={Link}>
+              Create a Room
+            </Button>
+          </ButtonGroup>
+        </Grid>
       </Grid>
     )
   }
@@ -17,7 +31,7 @@ const HomePage = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<p>Home Page</p>}></Route>
+        <Route path="/" element={<HomePageComponent />} />
         <Route path="/join" element={<RoomJoinPage />} />
         <Route path="/create" element={<CreateRoomPage />} />
         <Route path="/room/:roomCode" element={<Room />} />

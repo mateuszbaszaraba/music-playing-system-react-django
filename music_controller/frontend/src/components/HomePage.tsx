@@ -1,11 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import RoomJoinPage from './RoomJoinPage'
 import CreateRoomPage from './CreateRoomPage'
 import Room from './Room'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+} from 'react-router-dom'
 import { Button, Grid, Typography, ButtonGroup } from '@material-ui/core'
 
 const HomePage = () => {
+  const [roomCode, setRoomCode] = useState(null)
+
+  useEffect(() => {
+    checkIfInRoom()
+  }, [])
+
+  const checkIfInRoom = async () => {
+    const feedBack = await fetch('/api/user-in-room')
+    const jsonFeedBack = await feedBack.json()
+    setRoomCode(jsonFeedBack.code)
+  }
+
   const HomePageComponent = () => {
     return (
       <Grid container spacing={3}>
@@ -31,7 +49,16 @@ const HomePage = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePageComponent />} />
+        <Route
+          path="/"
+          element={(): any =>
+            roomCode ? (
+              <Navigate to={`/room/${roomCode}`} />
+            ) : (
+              <HomePageComponent />
+            )
+          }
+        />
         <Route path="/join" element={<RoomJoinPage />} />
         <Route path="/create" element={<CreateRoomPage />} />
         <Route path="/room/:roomCode" element={<Room />} />

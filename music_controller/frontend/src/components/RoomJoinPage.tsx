@@ -30,7 +30,7 @@ const RoomJoinPage = () => {
   }
 
   return (
-    <Grid container spacing={1} align="center">
+    <Grid container spacing={1} justify="center">
       <Grid item xs={12}>
         <Typography variant="h4" component="h4">
           Join a Room
@@ -38,7 +38,6 @@ const RoomJoinPage = () => {
       </Grid>
       <Grid item xs={12}>
         <TextField
-          error={error}
           label="Code"
           placeholder="Enter a Room Code"
           value={roomCode}

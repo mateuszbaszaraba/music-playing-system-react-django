@@ -27,12 +27,12 @@ const HomePage = () => {
   const HomePageComponent = () => {
     return (
       <Grid container spacing={3}>
-        <Grid item xs={12} align="center">
-          <Typography variant="h3" compact="h3">
+        <Grid item xs={12} justify="center">
+          <Typography variant="h3" component="h3">
             Music Listening With Friends
           </Typography>
         </Grid>
-        <Grid item xs={12} align="center">
+        <Grid item xs={12} justify="center">
           <ButtonGroup disableElevation variant="contained" color="primary">
             <Button color="primary" to="/join" component={Link}>
               Join a Room

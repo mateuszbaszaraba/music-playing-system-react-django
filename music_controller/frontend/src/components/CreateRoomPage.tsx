@@ -45,15 +45,15 @@ const CreateRoomPage = () => {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12} justify="center">
         <Typography component="h4" variant="h4">
           Create A Room
         </Typography>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12} justify="center">
         <FormControl component="fieldset">
           <FormHelperText component="div">
-            <div align="center">Guest Control of Playback State</div>
+            <p>Guest Control of Playback State</p>
           </FormHelperText>
           <RadioGroup row defaultValue="true" onChange={handleGuestCanPause}>
             <FormControlLabel
@@ -71,7 +71,7 @@ const CreateRoomPage = () => {
           </RadioGroup>
         </FormControl>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12} justify="center">
         <FormControl>
           <TextField
             required={true}
@@ -81,11 +81,11 @@ const CreateRoomPage = () => {
             inputProps={{ min: 1, style: { textAlign: 'center' } }}
           />
           <FormHelperText component="div">
-            <div align="center">Votes Required to Skip Song</div>
+            <p>Votes Required to Skip Song</p>
           </FormHelperText>
         </FormControl>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12} justify="center">
         <Button
           color="secondary"
           variant="contained"
@@ -94,7 +94,7 @@ const CreateRoomPage = () => {
           Create A Room
         </Button>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12} justify="center">
         <Button color="primary" variant="contained" to="/" component={Link}>
           Back
         </Button>

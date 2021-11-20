@@ -12,7 +12,7 @@ import {
   RadioGroup,
 } from '@material-ui/core'
 
-const CreateRoomPage = () => {
+const CreateRoomPage = props => {
   const [votesToSkip, setVotesToSkip] = useState(2)
   const [guestCanPause, setGuestCanPause] = useState(true)
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Grid, Typography } from '@material-ui/core'
 import { useParams, useNavigate } from 'react-router-dom'
+import CreateRoomPage from './CreateRoomPage'
 
 const Room = props => {
   const [votesToSkip, setVotesToSkip] = useState(2)
@@ -35,20 +36,41 @@ const Room = props => {
     navigate('/')
   }
 
-  const updateShowSetting = value => {
-    setShowSettings(value)
-  }
-
   const renderSettingsButton = () => {
     return (
       <Grid item xs={12} justifyContent="center">
         <Button
           variant="contained"
           color="primary"
-          onClick={() => updateShowSetting(true)}
+          onClick={() => setShowSettings(true)}
         >
           Settings
         </Button>
+      </Grid>
+    )
+  }
+
+  const renderSettings = () => {
+    return (
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <CreateRoomPage
+            update={true}
+            votesToSkip={votesToSkip}
+            guestCanPause={guestCanPause}
+            roomCode={roomCode}
+            updateCallBack={null}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => setShowSettings(false)}
+          >
+            Close
+          </Button>
+        </Grid>
       </Grid>
     )
   }
@@ -57,6 +79,9 @@ const Room = props => {
     getRoomDetails()
   }, [])
 
+  if (showSettings) {
+    return renderSettings()
+  }
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} justifyContent="center">

@@ -6,6 +6,7 @@ const Room = props => {
   const [votesToSkip, setVotesToSkip] = useState(2)
   const [guestCanPause, setGuestCanPause] = useState(false)
   const [isHost, setIsHost] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
 
   const { roomCode } = useParams()
 
@@ -34,6 +35,24 @@ const Room = props => {
     navigate('/')
   }
 
+  const updateShowSetting = value => {
+    setShowSettings(value)
+  }
+
+  const renderSettingsButton = () => {
+    return (
+      <Grid item xs={12} justifyContent="center">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => updateShowSetting(true)}
+        >
+          Settings
+        </Button>
+      </Grid>
+    )
+  }
+
   useEffect(() => {
     getRoomDetails()
   }, [])
@@ -60,6 +79,7 @@ const Room = props => {
           Host: {isHost.toString()}
         </Typography>
       </Grid>
+      {isHost ? renderSettingsButton() : null}
       <Grid item xs={12} justifyContent="center">
         <Button
           variant="contained"

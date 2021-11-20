@@ -26,13 +26,13 @@ const HomePage = () => {
 
   const HomePageComponent = () => {
     return (
-      <Grid container spacing={3}>
-        <Grid item xs={12} justify="center">
+      <Grid container spacing={3} justifyContent="center">
+        <Grid item xs={12}>
           <Typography variant="h3" component="h3">
             Music Listening With Friends
           </Typography>
         </Grid>
-        <Grid item xs={12} justify="center">
+        <Grid item xs={12}>
           <ButtonGroup disableElevation variant="contained" color="primary">
             <Button color="primary" to="/join" component={Link}>
               Join a Room
@@ -51,7 +51,7 @@ const HomePage = () => {
       <Routes>
         <Route
           path="/"
-          element={(): any =>
+          element={
             roomCode ? (
               <Navigate to={`/room/${roomCode}`} />
             ) : (

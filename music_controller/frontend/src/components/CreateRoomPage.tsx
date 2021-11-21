@@ -10,11 +10,20 @@ import {
   FormHelperText,
   Radio,
   RadioGroup,
+  Collapse,
 } from '@material-ui/core'
 
-const CreateRoomPage = props => {
-  const [votesToSkip, setVotesToSkip] = useState(2)
-  const [guestCanPause, setGuestCanPause] = useState(true)
+const CreateRoomPage = ({
+  votesToSkipProp = 2,
+  guestCanPauseProp = true,
+  updateProp = false,
+  roomCodeProp = null,
+  updateCallBackProp = () => {},
+}) => {
+  const [votesToSkip, setVotesToSkip] = useState(votesToSkipProp)
+  const [guestCanPause, setGuestCanPause] = useState(guestCanPauseProp)
+  const [successMsg, setSuccessMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
 
   let navigate = useNavigate()
 
@@ -43,11 +52,77 @@ const CreateRoomPage = props => {
     navigate(`/room/${jsonFeedBack.code}`)
   }
 
+  const handleUpdateButtonPressed = async () => {
+    const requestOptions = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        votes_to_skip: votesToSkip,
+        guest_can_pause: guestCanPause,
+        code: roomCodeProp,
+      }),
+    }
+
+    const feedBack = await fetch('/api/update-room', requestOptions)
+    const jsonFeedBack = await feedBack.json()
+    console.log(jsonFeedBack)
+    if (feedBack.ok) {
+      setSuccessMsg('Room updated successfully')
+    } else {
+      setErrorMsg('Error updating room...')
+    }
+    updateCallBackProp()
+  }
+
+  const renderCreateButtons = () => {
+    return (
+      <Grid container spacing={1}>
+        <Grid item xs={12} justify="center">
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={handleRoomButtonPressed}
+          >
+            Create A Room
+          </Button>
+        </Grid>
+        <Grid item xs={12} justify="center">
+          <Button color="primary" variant="contained" to="/" component={Link}>
+            Back
+          </Button>
+        </Grid>
+      </Grid>
+    )
+  }
+
+  const renderUpdateButtons = () => {
+    return (
+      <Grid item xs={12} justify="center">
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleUpdateButtonPressed}
+        >
+          Update Room
+        </Button>
+      </Grid>
+    )
+  }
+
+  const title = updateProp ? 'Update Room' : 'Create a Room'
+
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} justify="center">
         <Typography component="h4" variant="h4">
-          Create A Room
+          <Collapse in={errorMsg != '' || successMsg != ''}>
+            {successMsg}
+          </Collapse>
+        </Typography>
+      </Grid>
+      <Grid item xs={12} justify="center">
+        <Typography component="h4" variant="h4">
+          {title}
         </Typography>
       </Grid>
       <Grid item xs={12} justify="center">
@@ -55,7 +130,11 @@ const CreateRoomPage = props => {
           <FormHelperText component="div">
             <p>Guest Control of Playback State</p>
           </FormHelperText>
-          <RadioGroup row defaultValue="true" onChange={handleGuestCanPause}>
+          <RadioGroup
+            row
+            defaultValue={guestCanPauseProp.toString()}
+            onChange={handleGuestCanPause}
+          >
             <FormControlLabel
               value="true"
               control={<Radio color="primary" />}
@@ -85,20 +164,7 @@ const CreateRoomPage = props => {
           </FormHelperText>
         </FormControl>
       </Grid>
-      <Grid item xs={12} justify="center">
-        <Button
-          color="secondary"
-          variant="contained"
-          onClick={handleRoomButtonPressed}
-        >
-          Create A Room
-        </Button>
-      </Grid>
-      <Grid item xs={12} justify="center">
-        <Button color="primary" variant="contained" to="/" component={Link}>
-          Back
-        </Button>
-      </Grid>
+      {updateProp ? renderUpdateButtons() : renderCreateButtons()}
     </Grid>
   )
 }

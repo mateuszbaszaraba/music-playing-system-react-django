@@ -55,11 +55,11 @@ const Room = props => {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <CreateRoomPage
-            update={true}
-            votesToSkip={votesToSkip}
-            guestCanPause={guestCanPause}
-            roomCode={roomCode}
-            updateCallBack={null}
+            updateProp={true}
+            votesToSkipProp={votesToSkip}
+            guestCanPauseProp={guestCanPause}
+            roomCodeProp={roomCode}
+            updateCallBackProp={getRoomDetails}
           />
         </Grid>
         <Grid item xs={12}>

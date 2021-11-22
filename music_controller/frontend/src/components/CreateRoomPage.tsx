@@ -11,6 +11,7 @@ import {
   Radio,
   RadioGroup,
   Collapse,
+  FormLabel,
 } from '@material-ui/core'
 
 const CreateRoomPage = ({
@@ -76,8 +77,14 @@ const CreateRoomPage = ({
 
   const renderCreateButtons = () => {
     return (
-      <Grid container spacing={1}>
-        <Grid item xs={12} justify="center">
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+      >
+        <Grid item xs={12}>
           <Button
             color="secondary"
             variant="contained"
@@ -86,7 +93,7 @@ const CreateRoomPage = ({
             Create A Room
           </Button>
         </Grid>
-        <Grid item xs={12} justify="center">
+        <Grid item xs={12}>
           <Button color="primary" variant="contained" to="/" component={Link}>
             Back
           </Button>
@@ -97,7 +104,7 @@ const CreateRoomPage = ({
 
   const renderUpdateButtons = () => {
     return (
-      <Grid item xs={12} justify="center">
+      <Grid item xs={12}>
         <Button
           color="primary"
           variant="contained"
@@ -112,28 +119,35 @@ const CreateRoomPage = ({
   const title = updateProp ? 'Update Room' : 'Create a Room'
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12} justify="center">
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      spacing={1}
+    >
+      <Grid item xs={12}>
         <Typography component="h4" variant="h4">
           <Collapse in={errorMsg != '' || successMsg != ''}>
             {successMsg}
           </Collapse>
         </Typography>
       </Grid>
-      <Grid item xs={12} justify="center">
-        <Typography component="h4" variant="h4">
+      <Grid item xs={12}>
+        <Typography component="h3" variant="h3">
           {title}
         </Typography>
       </Grid>
-      <Grid item xs={12} justify="center">
+      <Grid item xs={12}>
         <FormControl component="fieldset">
-          <FormHelperText component="div">
-            <p>Guest Control of Playback State</p>
-          </FormHelperText>
+          <FormLabel component="legend">
+            Guest Control of Playback State
+          </FormLabel>
           <RadioGroup
             row
             defaultValue={guestCanPauseProp.toString()}
             onChange={handleGuestCanPause}
+            aria-label="Guest Control of Playback State"
           >
             <FormControlLabel
               value="true"
@@ -150,7 +164,7 @@ const CreateRoomPage = ({
           </RadioGroup>
         </FormControl>
       </Grid>
-      <Grid item xs={12} justify="center">
+      <Grid item xs={12}>
         <FormControl>
           <TextField
             required={true}

@@ -38,7 +38,7 @@ const Room = props => {
 
   const renderSettingsButton = () => {
     return (
-      <Grid item xs={12} justifyContent="center">
+      <Grid item xs={12}>
         <Button
           variant="contained"
           color="primary"
@@ -52,7 +52,13 @@ const Room = props => {
 
   const renderSettings = () => {
     return (
-      <Grid container spacing={1}>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+      >
         <Grid item xs={12}>
           <CreateRoomPage
             updateProp={true}
@@ -83,29 +89,35 @@ const Room = props => {
     return renderSettings()
   }
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12} justifyContent="center">
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      spacing={1}
+    >
+      <Grid item xs={12}>
         <Typography variant="h4" component="h4">
           Code: {roomCode}
         </Typography>
       </Grid>
-      <Grid item xs={12} justifyContent="center">
+      <Grid item xs={12}>
         <Typography variant="h6" component="h6">
           Votes: {votesToSkip}
         </Typography>
       </Grid>
-      <Grid item xs={12} justifyContent="center">
+      <Grid item xs={12}>
         <Typography variant="h6" component="h6">
           Guest Can Pause: {guestCanPause.toString()}
         </Typography>
       </Grid>
-      <Grid item xs={12} justifyContent="center">
+      <Grid item xs={12}>
         <Typography variant="h6" component="h6">
           Host: {isHost.toString()}
         </Typography>
       </Grid>
       {isHost ? renderSettingsButton() : null}
-      <Grid item xs={12} justifyContent="center">
+      <Grid item xs={12}>
         <Button
           variant="contained"
           color="secondary"

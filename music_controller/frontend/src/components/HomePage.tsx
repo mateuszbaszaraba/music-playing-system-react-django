@@ -26,7 +26,13 @@ const HomePage = () => {
 
   const HomePageComponent = () => {
     return (
-      <Grid container spacing={3} justifyContent="center">
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={3}
+      >
         <Grid item xs={12}>
           <Typography variant="h3" component="h3">
             Music Listening With Friends

@@ -8,6 +8,7 @@ const Room = props => {
   const [guestCanPause, setGuestCanPause] = useState(false)
   const [isHost, setIsHost] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false)
 
   const { roomCode } = useParams()
 
@@ -24,6 +25,24 @@ const Room = props => {
     setVotesToSkip(jsonFeedBack.votes_to_skip)
     setGuestCanPause(jsonFeedBack.guest_can_pause)
     setIsHost(jsonFeedBack.is_host)
+    console.log('testtest')
+    if (isHost) {
+      console.log('checking if host...')
+      authenticateSpotify()
+    }
+  }
+
+  const authenticateSpotify = async () => {
+    const response = await fetch('/spotify/is-authenticated')
+    const responseJson = await response.json()
+    setSpotifyAuthenticated(responseJson.status)
+    console.log(responseJson.status)
+
+    if (!responseJson.status) {
+      const response = await fetch('/spotify/get-auth-url')
+      const responseJson = await response.json()
+      window.location.replace(responseJson.url)
+    }
   }
 
   const leaveRoomHandler = async () => {

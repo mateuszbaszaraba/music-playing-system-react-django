@@ -25,11 +25,6 @@ const Room = props => {
     setVotesToSkip(jsonFeedBack.votes_to_skip)
     setGuestCanPause(jsonFeedBack.guest_can_pause)
     setIsHost(jsonFeedBack.is_host)
-    console.log('testtest')
-    if (isHost) {
-      console.log('checking if host...')
-      authenticateSpotify()
-    }
   }
 
   const authenticateSpotify = async () => {
@@ -103,6 +98,11 @@ const Room = props => {
   useEffect(() => {
     getRoomDetails()
   }, [])
+
+  useEffect(() => {
+    console.log('checking if host...')
+    authenticateSpotify()
+  }, [isHost])
 
   if (showSettings) {
     return renderSettings()

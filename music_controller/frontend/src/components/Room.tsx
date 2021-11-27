@@ -9,6 +9,7 @@ const Room = props => {
   const [isHost, setIsHost] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false)
+  const [song, setSong] = useState(null)
 
   const { roomCode } = useParams()
 
@@ -37,6 +38,20 @@ const Room = props => {
       const response = await fetch('/spotify/get-auth-url')
       const responseJson = await response.json()
       window.location.replace(responseJson.url)
+    }
+  }
+
+  const getCurrentSong = async () => {
+    const response = await fetch('/spotify/current-song')
+    console.log(response)
+    if (!response.ok) {
+      console.log('response not ok')
+      return {}
+    } else {
+      console.log('response ok')
+      const responseJson = await response.json()
+      setSong(responseJson)
+      console.log(responseJson)
     }
   }
 
@@ -104,6 +119,13 @@ const Room = props => {
     authenticateSpotify()
   }, [isHost])
 
+  useEffect(() => {
+    const interval = setInterval(getCurrentSong, 1000)
+    return () => {
+      clearInterval(interval)
+    }
+  })
+
   if (showSettings) {
     return renderSettings()
   }
@@ -120,21 +142,7 @@ const Room = props => {
           Code: {roomCode}
         </Typography>
       </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h6" component="h6">
-          Votes: {votesToSkip}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h6" component="h6">
-          Guest Can Pause: {guestCanPause.toString()}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h6" component="h6">
-          Host: {isHost.toString()}
-        </Typography>
-      </Grid>
+      {song}
       {isHost ? renderSettingsButton() : null}
       <Grid item xs={12}>
         <Button

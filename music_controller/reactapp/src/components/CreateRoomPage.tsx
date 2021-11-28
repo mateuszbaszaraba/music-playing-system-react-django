@@ -12,13 +12,13 @@ import {
   RadioGroup,
   Collapse,
   FormLabel,
-} from '@material-ui/core'
+} from '@mui/material'
 
 const CreateRoomPage = ({
   votesToSkipProp = 2,
   guestCanPauseProp = true,
   updateProp = false,
-  roomCodeProp = null,
+  roomCodeProp = '',
   updateCallBackProp = () => {},
 }) => {
   const [votesToSkip, setVotesToSkip] = useState(votesToSkipProp)
@@ -28,11 +28,11 @@ const CreateRoomPage = ({
 
   let navigate = useNavigate()
 
-  const handleVotesChange = event => {
+  const handleVotesChange = (event: any) => {
     setVotesToSkip(event.target.value)
   }
 
-  const handleGuestCanPause = event => {
+  const handleGuestCanPause = (event: any) => {
     setGuestCanPause(event.target.value === 'true' ? true : false)
   }
 

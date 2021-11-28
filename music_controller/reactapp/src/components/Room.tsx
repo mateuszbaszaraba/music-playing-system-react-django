@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Grid, Typography } from '@material-ui/core'
+import { Button, Grid, Typography } from '@mui/material'
 import { useParams, useNavigate } from 'react-router-dom'
 import CreateRoomPage from './CreateRoomPage'
 
-const Room = props => {
+const Room = (props: any) => {
   const [votesToSkip, setVotesToSkip] = useState(2)
   const [guestCanPause, setGuestCanPause] = useState(false)
   const [isHost, setIsHost] = useState(false)

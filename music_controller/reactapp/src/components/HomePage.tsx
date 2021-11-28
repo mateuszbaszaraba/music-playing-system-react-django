@@ -9,7 +9,7 @@ import {
   Link,
   Navigate,
 } from 'react-router-dom'
-import { Button, Grid, Typography, ButtonGroup } from '@material-ui/core'
+import { Button, Grid, Typography, ButtonGroup } from '@mui/material'
 
 const HomePage = () => {
   const [roomCode, setRoomCode] = useState(null)

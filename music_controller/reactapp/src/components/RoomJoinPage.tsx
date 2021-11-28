@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Grid, Typography, TextField } from '@material-ui/core'
-
+import { Button, Grid, Typography, TextField } from '@mui/material'
 const RoomJoinPage = () => {
   const [roomCode, setRoomCode] = useState('')
   const [error, setError] = useState('')
 
   let navigate = useNavigate()
 
-  const handleTextFieldChange = event => {
+  const handleTextFieldChange = (event: any) => {
     setRoomCode(event.target.value)
   }
 

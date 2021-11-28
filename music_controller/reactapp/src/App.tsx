@@ -1,9 +1,10 @@
 import React from 'react'
-import HomePage from './HomePage'
+import './App.css'
+import HomePage from './components/HomePage'
 
-const App = () => {
+function App() {
   return (
-    <div className="center">
+    <div>
       <HomePage />
     </div>
   )

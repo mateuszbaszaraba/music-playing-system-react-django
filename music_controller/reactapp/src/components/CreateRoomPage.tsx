@@ -14,15 +14,22 @@ import {
   FormLabel,
 } from '@mui/material'
 
-const CreateRoomPage = ({
-  votesToSkipProp = 2,
-  guestCanPauseProp = true,
-  updateProp = false,
-  roomCodeProp = '',
-  updateCallBackProp = () => {},
-}) => {
-  const [votesToSkip, setVotesToSkip] = useState(votesToSkipProp)
-  const [guestCanPause, setGuestCanPause] = useState(guestCanPauseProp)
+const CreateRoomPage: React.FC<{
+  votesToSkipProp: Number
+  guestCanPauseProp: Boolean
+  updateProp: Boolean
+  roomCodeProp: String
+  updateCallBackProp: Function
+}> = props => {
+  CreateRoomPage.defaultProps = {
+    votesToSkipProp: 2,
+    guestCanPauseProp: true,
+    updateProp: false,
+    roomCodeProp: '',
+    updateCallBackProp: () => {},
+  }
+  const [votesToSkip, setVotesToSkip] = useState(props.votesToSkipProp)
+  const [guestCanPause, setGuestCanPause] = useState(props.guestCanPauseProp)
   const [successMsg, setSuccessMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -60,7 +67,7 @@ const CreateRoomPage = ({
       body: JSON.stringify({
         votes_to_skip: votesToSkip,
         guest_can_pause: guestCanPause,
-        code: roomCodeProp,
+        code: props.roomCodeProp,
       }),
     }
 
@@ -72,7 +79,7 @@ const CreateRoomPage = ({
     } else {
       setErrorMsg('Error updating room...')
     }
-    updateCallBackProp()
+    props.updateCallBackProp()
   }
 
   const renderCreateButtons = () => {
@@ -116,7 +123,7 @@ const CreateRoomPage = ({
     )
   }
 
-  const title = updateProp ? 'Update Room' : 'Create a Room'
+  const title = props.updateProp ? 'Update Room' : 'Create a Room'
 
   return (
     <Grid
@@ -145,7 +152,7 @@ const CreateRoomPage = ({
           </FormLabel>
           <RadioGroup
             row
-            defaultValue={guestCanPauseProp.toString()}
+            defaultValue={props.guestCanPauseProp.toString()}
             onChange={handleGuestCanPause}
             aria-label="Guest Control of Playback State"
           >
@@ -178,7 +185,7 @@ const CreateRoomPage = ({
           </FormHelperText>
         </FormControl>
       </Grid>
-      {updateProp ? renderUpdateButtons() : renderCreateButtons()}
+      {props.updateProp ? renderUpdateButtons() : renderCreateButtons()}
     </Grid>
   )
 }

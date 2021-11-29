@@ -3,7 +3,7 @@ import { Button, Grid, Typography } from '@mui/material'
 import { useParams, useNavigate } from 'react-router-dom'
 import CreateRoomPage from './CreateRoomPage'
 
-const Room = (props: any) => {
+const Room: React.FC<{ leaveRoomCallBack: Function }> = props => {
   const [votesToSkip, setVotesToSkip] = useState(2)
   const [guestCanPause, setGuestCanPause] = useState(false)
   const [isHost, setIsHost] = useState(false)
@@ -93,7 +93,7 @@ const Room = (props: any) => {
             updateProp={true}
             votesToSkipProp={votesToSkip}
             guestCanPauseProp={guestCanPause}
-            roomCodeProp={roomCode}
+            roomCodeProp={roomCode!}
             updateCallBackProp={getRoomDetails}
           />
         </Grid>
@@ -120,9 +120,11 @@ const Room = (props: any) => {
   }, [isHost])
 
   useEffect(() => {
-    const interval = setInterval(getCurrentSong, 1000)
-    return () => {
-      clearInterval(interval)
+    if (spotifyAuthenticated) {
+      const interval = setInterval(getCurrentSong, 1000)
+      return () => {
+        clearInterval(interval)
+      }
     }
   })
 

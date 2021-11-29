@@ -70,7 +70,18 @@ const HomePage = () => {
           }
         />
         <Route path="/join" element={<RoomJoinPage />} />
-        <Route path="/create" element={<CreateRoomPage />} />
+        <Route
+          path="/create"
+          element={
+            <CreateRoomPage
+              votesToSkipProp={2}
+              guestCanPauseProp={true}
+              updateProp={false}
+              roomCodeProp={''}
+              updateCallBackProp={() => {}}
+            />
+          }
+        />
         <Route
           path="/room/:roomCode"
           element={<Room leaveRoomCallBack={clearRoomCode} />}

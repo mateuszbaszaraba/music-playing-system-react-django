@@ -9,14 +9,14 @@ const Room: React.FC<{ leaveRoomCallBack: Function }> = props => {
   const [isHost, setIsHost] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false)
-  const [song, setSong] = useState(null)
+  const [song, setSong] = useState([])
 
   const { roomCode } = useParams()
 
   let navigate = useNavigate()
 
   const getRoomDetails = async () => {
-    const response = await fetch('/api/get-room' + '?code=' + roomCode)
+    const response = await fetch('/api/get-room?code=' + roomCode)
     if (!response.ok) {
       props.leaveRoomCallBack()
       navigate('/')
@@ -33,7 +33,6 @@ const Room: React.FC<{ leaveRoomCallBack: Function }> = props => {
     const responseJson = await response.json()
     setSpotifyAuthenticated(responseJson.status)
     console.log(responseJson.status)
-
     if (!responseJson.status) {
       const response = await fetch('/spotify/get-auth-url')
       const responseJson = await response.json()
@@ -79,6 +78,24 @@ const Room: React.FC<{ leaveRoomCallBack: Function }> = props => {
     )
   }
 
+  useEffect(() => {
+    getRoomDetails()
+  })
+
+  useEffect(() => {
+    console.log('checking if host...')
+    authenticateSpotify()
+  }, [isHost])
+
+  useEffect(() => {
+    if (spotifyAuthenticated) {
+      const interval = setInterval(getCurrentSong, 1000)
+      return () => {
+        clearInterval(interval)
+      }
+    }
+  })
+
   const renderSettings = () => {
     return (
       <Grid
@@ -109,24 +126,6 @@ const Room: React.FC<{ leaveRoomCallBack: Function }> = props => {
       </Grid>
     )
   }
-
-  useEffect(() => {
-    getRoomDetails()
-  }, [])
-
-  useEffect(() => {
-    console.log('checking if host...')
-    authenticateSpotify()
-  }, [isHost])
-
-  useEffect(() => {
-    if (spotifyAuthenticated) {
-      const interval = setInterval(getCurrentSong, 1000)
-      return () => {
-        clearInterval(interval)
-      }
-    }
-  })
 
   if (showSettings) {
     return renderSettings()

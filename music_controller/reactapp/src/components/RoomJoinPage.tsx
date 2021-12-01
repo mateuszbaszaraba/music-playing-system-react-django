@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Button, Grid, Typography, TextField } from '@mui/material'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, Grid, Typography, TextField } from '@mui/material';
 const RoomJoinPage = () => {
-  const [roomCode, setRoomCode] = useState('')
-  const [error, setError] = useState('')
+  const [roomCode, setRoomCode] = useState('');
+  const [error, setError] = useState('');
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   const handleTextFieldChange = (event: any) => {
-    setRoomCode(event.target.value)
-  }
+    setRoomCode(event.target.value);
+  };
 
   const roomButtonPressed = async () => {
     const requestOptions = {
@@ -18,15 +18,18 @@ const RoomJoinPage = () => {
       body: JSON.stringify({
         code: roomCode,
       }),
-    }
+    };
 
-    const feedBack = await fetch('/api/join-room', requestOptions)
-    if (feedBack.status == 200) {
-      navigate(`/room/${roomCode}`)
+    const feedBack = await fetch(
+      'http://127.0.0.1:8000/api/join-room',
+      requestOptions
+    );
+    if (feedBack.status === 200) {
+      navigate(`/room/${roomCode}`);
     } else {
-      setError('Room not found')
+      setError('Room not found');
     }
-  }
+  };
 
   return (
     <Grid
@@ -66,7 +69,7 @@ const RoomJoinPage = () => {
         </Button>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default RoomJoinPage
+export default RoomJoinPage;

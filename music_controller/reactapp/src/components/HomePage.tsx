@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import RoomJoinPage from './RoomJoinPage'
-import CreateRoomPage from './CreateRoomPage'
-import Room from './Room'
+import React, { useState, useEffect } from 'react';
+import RoomJoinPage from './RoomJoinPage';
+import CreateRoomPage from './CreateRoomPage';
+import Room from './Room';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link,
   Navigate,
-} from 'react-router-dom'
-import { Button, Grid, Typography, ButtonGroup } from '@mui/material'
+} from 'react-router-dom';
+import { Button, Grid, Typography, ButtonGroup } from '@mui/material';
 
 const HomePage = () => {
-  const [roomCode, setRoomCode] = useState(null)
+  const [roomCode, setRoomCode] = useState(null);
 
   useEffect(() => {
-    checkIfInRoom()
-  }, [])
+    checkIfInRoom();
+  }, []);
 
   const checkIfInRoom = async () => {
-    const feedBack = await fetch('/api/user-in-room')
-    const jsonFeedBack = await feedBack.json()
-    setRoomCode(jsonFeedBack.code)
-  }
+    const feedBack = await fetch('http://127.0.0.1:8000/api/user-in-room');
+    const jsonFeedBack = await feedBack.json();
+    setRoomCode(jsonFeedBack.code);
+  };
 
   const HomePageComponent = () => {
     return (
@@ -49,12 +49,12 @@ const HomePage = () => {
           </ButtonGroup>
         </Grid>
       </Grid>
-    )
-  }
+    );
+  };
 
   const clearRoomCode = () => {
-    setRoomCode(null)
-  }
+    setRoomCode(null);
+  };
 
   return (
     <Router>
@@ -88,7 +88,7 @@ const HomePage = () => {
         />
       </Routes>
     </Router>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

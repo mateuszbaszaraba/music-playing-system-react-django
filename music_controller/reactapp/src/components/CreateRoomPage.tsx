@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Button,
   Grid,
@@ -12,36 +12,36 @@ import {
   RadioGroup,
   Collapse,
   FormLabel,
-} from '@mui/material'
+} from '@mui/material';
 
 const CreateRoomPage: React.FC<{
-  votesToSkipProp: Number
-  guestCanPauseProp: Boolean
-  updateProp: Boolean
-  roomCodeProp: String
-  updateCallBackProp: Function
-}> = props => {
+  votesToSkipProp: Number;
+  guestCanPauseProp: Boolean;
+  updateProp: Boolean;
+  roomCodeProp: String;
+  updateCallBackProp: Function;
+}> = (props) => {
   CreateRoomPage.defaultProps = {
     votesToSkipProp: 2,
     guestCanPauseProp: true,
     updateProp: false,
     roomCodeProp: '',
     updateCallBackProp: () => {},
-  }
-  const [votesToSkip, setVotesToSkip] = useState(props.votesToSkipProp)
-  const [guestCanPause, setGuestCanPause] = useState(props.guestCanPauseProp)
-  const [successMsg, setSuccessMsg] = useState('')
-  const [errorMsg, setErrorMsg] = useState('')
+  };
+  const [votesToSkip, setVotesToSkip] = useState(props.votesToSkipProp);
+  const [guestCanPause, setGuestCanPause] = useState(props.guestCanPauseProp);
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   const handleVotesChange = (event: any) => {
-    setVotesToSkip(event.target.value)
-  }
+    setVotesToSkip(event.target.value);
+  };
 
   const handleGuestCanPause = (event: any) => {
-    setGuestCanPause(event.target.value === 'true' ? true : false)
-  }
+    setGuestCanPause(event.target.value === 'true' ? true : false);
+  };
 
   const handleRoomButtonPressed = async () => {
     const requestOptions = {
@@ -51,14 +51,17 @@ const CreateRoomPage: React.FC<{
         votes_to_skip: votesToSkip,
         guest_can_pause: guestCanPause,
       }),
-    }
+    };
 
-    const feedBack = await fetch('/api/create-room', requestOptions)
-    const jsonFeedBack = await feedBack.json()
-    console.log(jsonFeedBack)
+    const feedBack = await fetch(
+      'http://127.0.0.1:8000/api/create-room',
+      requestOptions
+    );
+    const jsonFeedBack = await feedBack.json();
+    console.log(jsonFeedBack);
 
-    navigate(`/room/${jsonFeedBack.code}`)
-  }
+    navigate(`/room/${jsonFeedBack.code}`);
+  };
 
   const handleUpdateButtonPressed = async () => {
     const requestOptions = {
@@ -69,18 +72,21 @@ const CreateRoomPage: React.FC<{
         guest_can_pause: guestCanPause,
         code: props.roomCodeProp,
       }),
-    }
+    };
 
-    const feedBack = await fetch('/api/update-room', requestOptions)
-    const jsonFeedBack = await feedBack.json()
-    console.log(jsonFeedBack)
+    const feedBack = await fetch(
+      'http://127.0.0.1:8000/api/update-room',
+      requestOptions
+    );
+    const jsonFeedBack = await feedBack.json();
+    console.log(jsonFeedBack);
     if (feedBack.ok) {
-      setSuccessMsg('Room updated successfully')
+      setSuccessMsg('Room updated successfully');
     } else {
-      setErrorMsg('Error updating room...')
+      setErrorMsg('Error updating room...');
     }
-    props.updateCallBackProp()
-  }
+    props.updateCallBackProp();
+  };
 
   const renderCreateButtons = () => {
     return (
@@ -106,8 +112,8 @@ const CreateRoomPage: React.FC<{
           </Button>
         </Grid>
       </Grid>
-    )
-  }
+    );
+  };
 
   const renderUpdateButtons = () => {
     return (
@@ -120,10 +126,10 @@ const CreateRoomPage: React.FC<{
           Update Room
         </Button>
       </Grid>
-    )
-  }
+    );
+  };
 
-  const title = props.updateProp ? 'Update Room' : 'Create a Room'
+  const title = props.updateProp ? 'Update Room' : 'Create a Room';
 
   return (
     <Grid
@@ -135,7 +141,7 @@ const CreateRoomPage: React.FC<{
     >
       <Grid item xs={12}>
         <Typography component="h4" variant="h4">
-          <Collapse in={errorMsg != '' || successMsg != ''}>
+          <Collapse in={errorMsg !== '' || successMsg !== ''}>
             {successMsg}
           </Collapse>
         </Typography>
@@ -187,7 +193,7 @@ const CreateRoomPage: React.FC<{
       </Grid>
       {props.updateProp ? renderUpdateButtons() : renderCreateButtons()}
     </Grid>
-  )
-}
+  );
+};
 
-export default CreateRoomPage
+export default CreateRoomPage;

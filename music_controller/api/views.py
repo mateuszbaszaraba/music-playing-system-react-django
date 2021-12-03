@@ -98,7 +98,7 @@ class UpdateRoom(APIView):
   serializer_class = UpdateRoomSerializer
 
   def patch(self, request, format=None):
-    if not self.request.session.exists(self.request.session.session_key): #czy mozna zapisać krócej self.request.session.session_key.exists()
+    if not self.request.session.exists(self.request.session.session_key):
       self.request.session.create()
 
     serializer = self.serializer_class(data=request.data)
